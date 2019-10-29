@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.academits.converter.ContactDtoToContactConverter;
 import ru.academits.converter.ContactToContactDtoConverter;
 import ru.academits.dto.ContactDto;
+import ru.academits.model.Contact;
 import ru.academits.model.ContactValidation;
 import ru.academits.service.ContactService;
 import org.slf4j.Logger;
@@ -42,9 +43,15 @@ public class PhoneBookController {
 
     @RequestMapping(value = "removeContact", method = RequestMethod.POST)
     @ResponseBody
-    public void deleteContact(@RequestBody ContactDto contact) {
+    public void deleteContact(@RequestBody Contact contact) {
         logger.info("called method removeContact id = " + contact.getId());
-        contactService.removeContact(contactDtoToContactConverter.convert(contact));
+        List<Contact> listContact = contactService.getAllContacts();
+        for (Contact value : listContact) {
+            if (value.getId().equals(contact.getId())) {
+                contactService.removeContact(value);
+                return;
+            }
+        }
     }
 }
 

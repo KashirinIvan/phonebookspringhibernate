@@ -2,6 +2,8 @@ package ru.academits.service;
 
 import org.springframework.stereotype.Service;
 import ru.academits.dao.ContactDao;
+import ru.academits.dao.GenericDao;
+import ru.academits.dao.GenericDaoImpl;
 import ru.academits.model.Contact;
 import ru.academits.model.ContactValidation;
 
